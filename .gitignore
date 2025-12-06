@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Sensitive Data - DO NOT COMMIT
+extracted_csvs/       # Contains extracted user data
+Snapchat_Data/        # Raw Snapchat data exports
+*.csv                 # Any loose CSV files
+*.pdf                 # Reports that may contain data insights
+analysis_report.md    # Generated report with data
+analysis_plots/       # Visualizations derived from data
+*.log                 # Log files
