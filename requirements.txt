@@ -15,3 +15,4 @@ six==1.17.0
 tqdm==4.67.1
 tzdata==2025.2
 wordcloud==1.9.4
+beautifulsoup4>=4.12.0

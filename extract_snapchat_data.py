@@ -34,9 +34,9 @@ from tqdm import tqdm
 # CONFIGURATION
 # =============================================================================
 # All paths are relative to this script's directory
-RAW_ZIP_DIR = "Snapchat_Data/Snapchat_donated_data"  # Raw zip files (optional)
-EXTRACTED_DIR = "Snapchat_Data/Extracted_Users"       # Extracted user folders
-OUTPUT_DIR = "extracted_csvs"                         # Where processed CSVs are saved
+RAW_ZIP_DIR = "Snapchat donated data"             # Raw zip files (place zips here)
+EXTRACTED_DIR = "Snapchat_Data/Extracted_Users"   # Extracted user folders
+OUTPUT_DIR = "extracted_csvs"                     # Where processed CSVs are saved
 LOG_FILE = "extraction_output.log"
 ERROR_LOG_FILE = "extraction_errors.log"
 
@@ -668,10 +668,18 @@ def process_user(user_dir, user_id):
             all_snap_history.extend(parse_snap_history_subpage(html_file, user_id))
 
 def main():
-    # Iterate over extracted user directories
-    extracted_users_dir = EXTRACTED_DIR
-    if os.path.exists(extracted_users_dir):
-        user_dirs = [d for d in glob.glob(os.path.join(extracted_users_dir, "*")) if os.path.isdir(d)]
+    # Step 1: Auto-extract any zip files from RAW_ZIP_DIR
+    if os.path.exists(RAW_ZIP_DIR):
+        zip_files = glob.glob(os.path.join(RAW_ZIP_DIR, "*.zip"))
+        if zip_files:
+            print(f"Found {len(zip_files)} zip files. Extracting...")
+            for zip_path in tqdm(zip_files, desc="Extracting Zips"):
+                user_id = os.path.splitext(os.path.basename(zip_path))[0]
+                extract_zip(zip_path, user_id)
+    
+    # Step 2: Process extracted user directories
+    if os.path.exists(EXTRACTED_DIR):
+        user_dirs = [d for d in glob.glob(os.path.join(EXTRACTED_DIR, "*")) if os.path.isdir(d)]
         print(f"Found {len(user_dirs)} extracted users.")
         
         for user_dir in tqdm(user_dirs, desc="Processing Users"):
@@ -682,7 +690,7 @@ def main():
                 logging.error(f"Critical error processing {user_id}: {e}")
                 print(f"Failed {user_id}")
     else:
-        print(f"No Extracted_Users directory found at {extracted_users_dir}")
+        print(f"No Extracted_Users directory found at {EXTRACTED_DIR}")
         return
 
     # Export
