@@ -84,14 +84,6 @@ This generates:
 | `conversation_wordcloud.png` | Common words in conversations |
 | `myai_wordcloud.png` | Common words in My AI responses |
 
-## Key Findings (N=53 Users)
-
-- **Data Span**: 2014-2025 (11 years)
-- **Total Messages**: ~415k
-- **Median User**: 365 messages, 385 friends
-- **Power User**: 184k messages (single user)
-- **My AI Adoption**: 56.6% of users
-
 ## Requirements
 
 - Python 3.10+
