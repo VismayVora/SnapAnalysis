@@ -6,15 +6,19 @@ A Python toolkit for extracting and analyzing Snapchat data exports. This projec
 
 ```
 SnapAnalysis_Extraction/
-├── Snapchat_Data/           # Raw data directory (not tracked by git)
-│   └── Extracted_Users/     # Extracted user directories
-├── extracted_csvs/          # Processed CSV files
-├── analysis_plots/          # Generated visualizations
-├── extract_snapchat_data.py # Data extraction script
-├── analyze_snapchat_data.py # Analysis script
-├── analysis_report.md       # Generated analysis report
-├── requirements.txt         # Python dependencies
-└── README.md                # This file
+├── Snapchat_Data/
+│   ├── Snapchat_donated_data/   # (Optional) Raw zip files
+│   └── Extracted_Users/         # Extracted user folders (required)
+│       ├── user_id_1/
+│       │   └── html/
+│       └── user_id_2/
+│           └── html/
+├── extracted_csvs/              # Output: processed CSV files
+├── analysis_plots/              # Output: generated visualizations
+├── extract_snapchat_data.py
+├── analyze_snapchat_data.py
+├── requirements.txt
+└── README.md
 ```
 
 ## Quick Start

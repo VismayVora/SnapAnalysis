@@ -33,13 +33,16 @@ from tqdm import tqdm
 # =============================================================================
 # CONFIGURATION
 # =============================================================================
-# Paths to raw data and extraction output
-DATA_DIR = "/Volumes/X9_Pro/Grad_AI_Consultant/SnapAnalysis_Extraction/Snapchat_Data/Snapchat donated data"
-EXTRACTED_DIR = "/Volumes/X9_Pro/Grad_AI_Consultant/SnapAnalysis_Extraction/Snapchat_Data/Extracted_Users"
-INPUT_DIR = "Snapchat_Data"
-OUTPUT_DIR = "extracted_csvs"  # Where processed CSVs are saved
+# All paths are relative to this script's directory
+RAW_ZIP_DIR = "Snapchat_Data/Snapchat_donated_data"  # Raw zip files (optional)
+EXTRACTED_DIR = "Snapchat_Data/Extracted_Users"       # Extracted user folders
+OUTPUT_DIR = "extracted_csvs"                         # Where processed CSVs are saved
 LOG_FILE = "extraction_output.log"
 ERROR_LOG_FILE = "extraction_errors.log"
+
+# Ensure output directory exists
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+os.makedirs(EXTRACTED_DIR, exist_ok=True)
 
 # Setup Logging - Errors are logged to file for debugging
 logging.basicConfig(filename=LOG_FILE, level=logging.ERROR, 
@@ -60,11 +63,6 @@ verification_stats = []  # Tracks input vs output counts for data validation
 # =============================================================================
 # HELPER FUNCTIONS
 # =============================================================================
-
-def setup_directories():
-    """Creates the extraction output directory if it doesn't exist."""
-    if not os.path.exists(EXTRACTED_DIR):
-        os.makedirs(EXTRACTED_DIR)
 
 def extract_zip(zip_path, user_id):
     """
@@ -670,8 +668,6 @@ def process_user(user_dir, user_id):
             all_snap_history.extend(parse_snap_history_subpage(html_file, user_id))
 
 def main():
-    setup_directories()
-    
     # Iterate over extracted user directories
     extracted_users_dir = EXTRACTED_DIR
     if os.path.exists(extracted_users_dir):
