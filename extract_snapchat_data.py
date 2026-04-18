@@ -240,11 +240,13 @@ def parse_myai(user_dir, user_id):
                     for row in rows[1:]:
                         cols = row.find_all('td')
                         if len(cols) == len(headers):
+                            ip_addr = cols[ip_idx].get_text(strip=True)
                             myai_data.append({
                                 'user_id': user_id,
                                 'timestamp': cols[ts_idx].get_text(strip=True),
-                                'ip_address': cols[ip_idx].get_text(strip=True),
+                                'ip_address': ip_addr,
                                 'type': cols[type_idx].get_text(strip=True),
+                                'sender': 'USER' if ip_addr else 'AI',
                                 'content': cols[content_idx].get_text(strip=True)
                             })
                 except ValueError:
